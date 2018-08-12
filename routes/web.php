@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/beers', 'BeersController@index')->middleware('auth');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/beers/{beer}', 'BeersController@show')->middleware('auth');
 
 Auth::routes();
 
