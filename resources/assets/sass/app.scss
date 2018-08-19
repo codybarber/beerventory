@@ -12,3 +12,49 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+/* Breakpoint for extra-small viewport */
+@include media-breakpoint-up(xs) {
+    .beer-search-input {
+        min-width: 100%;
+    }
+    .beer-search-button {
+        min-width: 100%;
+    }
+}
+/* Breakpoint for small viewport */
+@include media-breakpoint-up(sm) {
+    .beer-search-input {
+        min-width: 100%;
+    }
+    .beer-search-button {
+        min-width: 100%;
+    }
+}
+/* Breakpoint for medium viewport */
+@include media-breakpoint-up(md) {
+    .beer-search-input {
+        min-width: 80%;
+    }
+    .beer-search-button {
+        min-width: 20%;
+    }
+}
+/* Breakpoint for large viewport */
+@include media-breakpoint-up(lg) {
+    .beer-search-input {
+        min-width: 80%;
+    }
+    .beer-search-button {
+        min-width: 20%;
+    }
+}
+/* Breakpoint for extra-large viewport */
+@include media-breakpoint-up(xl) {
+    .beer-search-input {
+        min-width: 80%;
+    }
+    .beer-search-button {
+        min-width: 20%;
+    }
+}

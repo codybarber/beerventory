@@ -15,8 +15,11 @@ class CreateBeersTable extends Migration
     {
         Schema::create('beers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('untappd_id');
             $table->string('name');
-            $table->string('brewery');
+            $table->integer('brewery')->unsigned();
+            $table->foreign('brewery')->references('id')->on('breweries');
+            $table->string('beer_label');
             $table->string('style');
             $table->year('year')->nullable();
             $table->float('abv', 4, 2);
@@ -26,9 +29,6 @@ class CreateBeersTable extends Migration
             $table->string('purchase_location_city');
             $table->integer('purchase_location_state')->unsigned();
             $table->foreign('purchase_location_state')->references('id')->on('states');
-            $table->string('url_image')->nullable();
-            $table->string('url_untappd')->nullable();
-            $table->string('url_ratebeer')->nullable();
             $table->timestamps();
         });
     }

@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', 'HomeController@index')->middleware('auth');
+
 Route::get('/beers', 'BeersController@index')->middleware('auth');
 
 Route::get('/beers/{beer}', 'BeersController@show')->middleware('auth');
+
+Route::get('/add_beer', 'BeersController@create')->middleware('auth');
 
 Auth::routes();
 

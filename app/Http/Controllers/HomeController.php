@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Beer;
 use Illuminate\Http\Request;
+use Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('beers.index');
+        $userId = Auth::id();
+
+        $user_beers = DB::table('beers')
+            ->leftJoin('collections', 'beers.id', '=', 'collections.beer_id')
+            ->where('collections.user_id', '=', $userId)
+            ->get();
+
+        return view('dashboard.index', compact('user_beers'));
     }
 }

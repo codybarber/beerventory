@@ -3,8 +3,7 @@
 @section('content')
 <div class="flex-center position-ref">
     <div class="content">
-        <h1>{{ $beer->name }}</h1>
-        <h2>{{ $beer->brewery }}</h2>
+        <search-component></search-component>
     </div>
 </div>
 @endsection

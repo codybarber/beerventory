@@ -10477,3 +10477,61 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+/* Breakpoint for extra-small viewport */
+
+.beer-search-input {
+  min-width: 100%;
+}
+
+.beer-search-button {
+  min-width: 100%;
+}
+
+/* Breakpoint for small viewport */
+
+@media (min-width: 576px) {
+  .beer-search-input {
+    min-width: 100%;
+  }
+
+  .beer-search-button {
+    min-width: 100%;
+  }
+}
+
+/* Breakpoint for medium viewport */
+
+@media (min-width: 768px) {
+  .beer-search-input {
+    min-width: 80%;
+  }
+
+  .beer-search-button {
+    min-width: 20%;
+  }
+}
+
+/* Breakpoint for large viewport */
+
+@media (min-width: 992px) {
+  .beer-search-input {
+    min-width: 80%;
+  }
+
+  .beer-search-button {
+    min-width: 20%;
+  }
+}
+
+/* Breakpoint for extra-large viewport */
+
+@media (min-width: 1200px) {
+  .beer-search-input {
+    min-width: 80%;
+  }
+
+  .beer-search-button {
+    min-width: 20%;
+  }
+}
+

@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
-        @if (Route::has('login'))
+        {{-- @if (Route::has('login'))
           <div class="top-left links">
               <a href="{{ url('/') }}">Beerventory</a>
           </div>
-            {{-- <div class="top-right links">
+            <div class="top-right links">
                 @auth
                     <a href="{{ url('/home') }}">Home</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
                     <a href="{{ route('register') }}">Register</a>
                 @endauth
-            </div> --}}
-        @endif
+            </div>
+        @endif --}}
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="links">
+                    <a href="{{ url('/dashboard') }}">Beerventory</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -41,6 +43,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
