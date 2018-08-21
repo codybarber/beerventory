@@ -17,18 +17,13 @@ class CreateBeersTable extends Migration
             $table->increments('id');
             $table->integer('untappd_id');
             $table->string('name');
-            $table->integer('brewery')->unsigned();
-            $table->foreign('brewery')->references('id')->on('breweries');
+            $table->string('brewery_name');
+            $table->integer('brewery_untappd_id');
             $table->string('beer_label');
             $table->string('style');
             $table->year('year')->nullable();
             $table->float('abv', 4, 2);
             $table->float('value', 8, 2)->nullable();
-            $table->date('purchase_date');
-            $table->string('purchase_location');
-            $table->string('purchase_location_city');
-            $table->integer('purchase_location_state')->unsigned();
-            $table->foreign('purchase_location_state')->references('id')->on('states');
             $table->timestamps();
         });
     }

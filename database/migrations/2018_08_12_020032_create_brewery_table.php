@@ -14,13 +14,11 @@ class CreateBreweryTable extends Migration
     public function up()
     {
         Schema::create('breweries', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('untappd_id');
             $table->string('name');
             $table->string('brewery_label');
             $table->string('city');
-            $table->integer('state')->unsigned();
-            $table->foreign('state')->references('id')->on('states');
+            $table->string('state');
             $table->timestamps();
         });
     }

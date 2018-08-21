@@ -18,7 +18,7 @@ class BreweriesTableSeeder extends Seeder
             'name' => 'Creaure Comforts Brewing Company',
             'brewery_label' => 'https://untappd.akamaized.net/site/brewery_logos/brewery-8509_7c3bc.jpeg',
             'city' => 'Athens',
-            'state' => 13,
+            'state' => 'GA',
         ]);
 
         DB::table('breweries')->insert([
@@ -26,7 +26,7 @@ class BreweriesTableSeeder extends Seeder
             'name' => 'Barebottle Brewing Company',
             'brewery_label' => 'https://untappd.akamaized.net/site/brewery_logos/brewery-268965_56c98.jpeg',
             'city' => 'San Francisco',
-            'state' => 6,
+            'state' => 'CA',
         ]);
 
         DB::table('breweries')->insert([
@@ -34,7 +34,7 @@ class BreweriesTableSeeder extends Seeder
             'name' => 'Kenai River Brewing Company',
             'brewery_label' => 'https://untappd.akamaized.net/site/brewery_logos/brewery-KenaiRiverBrewery_10188.jpeg',
             'city' => 'Kenai',
-            'state' => 1,
+            'state' => 'AK',
         ]);
     }
 }

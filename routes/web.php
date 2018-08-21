@@ -15,14 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::resource('/beers', 'BeersController', [
+  'except' => ['edit', 'store']
+])->middleware('auth');
+
 Route::get('/dashboard', 'HomeController@index')->middleware('auth');
 
-Route::get('/beers', 'BeersController@index')->middleware('auth');
+// Route::get('/beers', 'BeersController@index')->middleware('auth');
 
-Route::get('/beers/{beer}', 'BeersController@show')->middleware('auth');
+// Route::get('/beers/{beer}', 'BeersController@show')->middleware('auth');
 
-Route::get('/add_beer', 'BeersController@create')->middleware('auth');
-
-Auth::routes();
+Route::get('/add_beer', 'AddBeersController@index')->middleware('auth');
+Route::post('/api/add_beer', 'AddBeersController@store')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');

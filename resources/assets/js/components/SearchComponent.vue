@@ -18,12 +18,15 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <button class="btn btn-primary" @click="add_beer">Add Selected Beer</button>
+        </div>
+        <div class="row justify-content-center">
             <!-- <div class="col-md-4"> -->
 
                 <div v-for="result in results">
-                    <div class="card crd-default" :class="[selected_beer === result.beer.bid  ? 'selected-beer-card' : 'beer-card']">
+                    <div class="card crd-default" :class="[selected_beer === result  ? 'selected-beer-card' : 'beer-card']">
                         <label class="search-beer-cards">
-                            <input type="radio" :name="result.beer.beer_name" :value="result.beer.bid" v-model="selected_beer"/>
+                            <input type="radio" :name="result.beer.beer_name" :value="result" v-model="selected_beer"/>
                             <div class="card-header">{{result.beer.beer_name}}</div>
                             <div class="card-body">
                                 <img :src="result.beer.beer_label"/>
@@ -31,15 +34,6 @@
                         </label>
                     </div>
                 </div>
-                <!-- <div class="card card-default" v-for="result in results">
-                    <div class="card-header">{{result.beer.beer_name}}</div>
-
-                    <div class="card-body">
-                        <img :src="result.beer.beer_label"/>
-                        {{result.beer.beer_description}}
-                    </div>
-                </div> -->
-            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -51,7 +45,8 @@
                 search_item: '',
                 info: null,
                 results: [],
-                selected_beer: null
+                selected_beer: null,
+                selected: null
             }
         },
         methods: {
@@ -71,23 +66,38 @@
                 .catch(function(error) {
                     console.log(error);
                 });
-            }
+            },
+            add_beer: function($this) {
+                let self = this;
+                axios.post('/api/add_beer', {
+                    untappd_id: this.selected_beer.beer.bid,
+                    name: this.selected_beer.beer.beer_name,
+                    brewery_name: this.selected_beer.brewery.brewery_name,
+                    brewery_untappd_id: this.selected_beer.brewery.brewery_id,
+                    beer_label: this.selected_beer.beer.beer_label,
+                    style: this.selected_beer.beer.beer_style,
+                    year: null,
+                    abv: this.selected_beer.beer.beer_abv,
+                    brewery_label: this.selected_beer.brewery.brewery_label,
+                    city: this.selected_beer.brewery.location.brewery_city,
+                    state: this.selected_beer.brewery.location.brewery_state
 
-            // axios.get('/user', {
-            //     params: {
-            //       ID: 12345
-            //     }
-            //   })
-            //   .then(function (response) {
-            //     console.log(response);
-            //   })
-            //   .catch(function (error) {
-            //     console.log(error);
-            //   })
-            //   .then(function () {
-            //     // always executed
-            //   });
+                })
+                .then(function(response) {
+                    console.log(response);
+                    window.location = '/dashboard';
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+            }
         }
+        // watch: {
+        //     selected_beer: function() {
+        //         this.selected.
+        //     }
+        // }
     }
 </script>
 

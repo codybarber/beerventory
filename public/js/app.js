@@ -47504,12 +47504,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47517,7 +47511,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             search_item: '',
             info: null,
             results: [],
-            selected_beer: null
+            selected_beer: null,
+            selected: null
         };
     },
 
@@ -47536,24 +47531,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
-        }
+        },
+        add_beer: function add_beer($this) {
+            var self = this;
+            axios.post('/api/add_beer', {
+                untappd_id: this.selected_beer.beer.bid,
+                name: this.selected_beer.beer.beer_name,
+                brewery_name: this.selected_beer.brewery.brewery_name,
+                brewery_untappd_id: this.selected_beer.brewery.brewery_id,
+                beer_label: this.selected_beer.beer.beer_label,
+                style: this.selected_beer.beer.beer_style,
+                year: null,
+                abv: this.selected_beer.beer.beer_abv,
+                brewery_label: this.selected_beer.brewery.brewery_label,
+                city: this.selected_beer.brewery.location.brewery_city,
+                state: this.selected_beer.brewery.location.brewery_state
 
-        // axios.get('/user', {
-        //     params: {
-        //       ID: 12345
+            }).then(function (response) {
+                console.log(response);
+                window.location = '/dashboard';
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        // watch: {
+        //     selected_beer: function() {
+        //         this.selected.
         //     }
-        //   })
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   })
-        //   .then(function () {
-        //     // always executed
-        //   });
-    }
-});
+        // }
+    } });
 
 /***/ }),
 /* 45 */,
@@ -48008,6 +48014,14 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", on: { click: _vm.add_beer } },
+        [_vm._v("Add Selected Beer")]
+      )
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row justify-content-center" },
@@ -48018,7 +48032,7 @@ var render = function() {
             {
               staticClass: "card crd-default",
               class: [
-                _vm.selected_beer === result.beer.bid
+                _vm.selected_beer === result
                   ? "selected-beer-card"
                   : "beer-card"
               ]
@@ -48036,12 +48050,12 @@ var render = function() {
                   ],
                   attrs: { type: "radio", name: result.beer.beer_name },
                   domProps: {
-                    value: result.beer.bid,
-                    checked: _vm._q(_vm.selected_beer, result.beer.bid)
+                    value: result,
+                    checked: _vm._q(_vm.selected_beer, result)
                   },
                   on: {
                     change: function($event) {
-                      _vm.selected_beer = result.beer.bid
+                      _vm.selected_beer = result
                     }
                   }
                 }),

@@ -20,6 +20,8 @@
             <div class="content">
                 <h1>DASHBOARD HERE</h1>
                 <a href="/beers">Beers</a>
+                <a href="/dashboard">Your Collection</a>
+                <a href="/add_beer">Add a Beer</a>
             </div>
         </div>
     </body>

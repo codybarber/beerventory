@@ -15,19 +15,19 @@ class UserlocationsTableSeeder extends Seeder
     {
         DB::table('userlocations')->insert([
             'user_id' => 1,
-            'state_id' => 12,
+            'state' => 'FL',
             'city' => 'Tampa',
         ]);
 
         DB::table('userlocations')->insert([
             'user_id' => 2,
-            'state_id' => 6,
+            'state' => 'CA',
             'city' => 'San Francisco',
         ]);
 
         DB::table('userlocations')->insert([
             'user_id' => 3,
-            'state_id' => 1,
+            'state' => 'AK',
             'city' => 'Kenai',
         ]);
     }

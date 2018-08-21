@@ -16,8 +16,7 @@ class CreateUserlocationTable extends Migration
         Schema::create('userlocations', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('state_id')->unsigned();
-            $table->foreign('state_id')->references('id')->on('states');
+            $table->string('state');
             $table->string('city');
         });
     }

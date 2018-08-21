@@ -15,8 +15,4 @@ class BeersController extends Controller
     public function show(Beer $beer) {
         return view('beers.show', compact('beer'));
     }
-
-    public function create(Beer $beer) {
-        return view('add_beer.index', compact('beer'));
-    }
 }
