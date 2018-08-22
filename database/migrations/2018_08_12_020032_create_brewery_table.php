@@ -19,7 +19,6 @@ class CreateBreweryTable extends Migration
             $table->string('brewery_label');
             $table->string('city');
             $table->string('state');
-            $table->timestamps();
         });
     }
 

@@ -74,11 +74,11 @@
                     name: this.selected_beer.beer.beer_name,
                     brewery_name: this.selected_beer.brewery.brewery_name,
                     brewery_untappd_id: this.selected_beer.brewery.brewery_id,
+                    brewery_label: this.selected_beer.brewery.brewery_label,
                     beer_label: this.selected_beer.beer.beer_label,
                     style: this.selected_beer.beer.beer_style,
                     year: null,
                     abv: this.selected_beer.beer.beer_abv,
-                    brewery_label: this.selected_beer.brewery.brewery_label,
                     city: this.selected_beer.brewery.location.brewery_city,
                     state: this.selected_beer.brewery.location.brewery_state
 

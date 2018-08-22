@@ -2,11 +2,13 @@
     <div class="container">
         {{-- @if (Route::has('login'))
           <div class="top-left links">
-              <a href="{{ url('/') }}">Beerventory</a>
+              <a href="{{ url('/dashboard') }}">Beerventory</a>
           </div>
             <div class="top-right links">
                 @auth
-                    <a href="{{ url('/home') }}">Home</a>
+                    <a href="{{ url('/dashboard') }}">Dashboard</a>
+                    <a href="{{ url('/beers') }}">Beers</a>
+                    <a href="{{ url('/add_beer') }}">Add a Beer</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
                     <a href="{{ route('register') }}">Register</a>
@@ -24,6 +26,16 @@
                 <li class="links">
                     <a href="{{ url('/dashboard') }}">Beerventory</a>
                 </li>
+                <li class="links">
+                    <a href="{{ url('/dashboard') }}">Dashboard</a>
+                </li>
+                <li class="links">
+                    <a href="{{ url('/beers') }}">Beers</a>
+                </li>
+                <li class="links">
+                    <a href="{{ url('/add_beer') }}">Add a Beer</a>
+                </li>
+
             </ul>
 
             <!-- Right Side Of Navbar -->
