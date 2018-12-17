@@ -14,6 +14,7 @@ class Collection extends Model
     protected $fillable = [
         'user_id',
         'beer_id',
+        'quantity',
     ];
 
     public $timestamps = false;

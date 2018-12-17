@@ -46,6 +46,7 @@ class AddBeersController extends Controller
         $collection = new Collection();
         $collection->user_id = $user->id;
         $collection->beer_id = $beer->id;
+        $collection->quantity = $request['quantity'];
         $collection->save();
 
         return response($beer->jsonSerialize(), Response::HTTP_CREATED);

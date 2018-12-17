@@ -10479,59 +10479,27 @@ a.text-dark:focus {
 
 /* Breakpoint for extra-small viewport */
 
-.beer-search-input {
-  min-width: 100%;
-}
-
-.beer-search-button {
-  min-width: 100%;
-}
-
 /* Breakpoint for small viewport */
-
-@media (min-width: 576px) {
-  .beer-search-input {
-    min-width: 100%;
-  }
-
-  .beer-search-button {
-    min-width: 100%;
-  }
-}
 
 /* Breakpoint for medium viewport */
 
-@media (min-width: 768px) {
-  .beer-search-input {
-    min-width: 80%;
-  }
-
-  .beer-search-button {
-    min-width: 20%;
-  }
-}
-
 /* Breakpoint for large viewport */
-
-@media (min-width: 992px) {
-  .beer-search-input {
-    min-width: 80%;
-  }
-
-  .beer-search-button {
-    min-width: 20%;
-  }
-}
 
 /* Breakpoint for extra-large viewport */
 
-@media (min-width: 1200px) {
-  .beer-search-input {
-    min-width: 80%;
-  }
+.beerventory-page a {
+  text-decoration: none;
+  color: white;
+}
 
-  .beer-search-button {
-    min-width: 20%;
-  }
+.beer-card {
+  width: 100%;
+  background-color: #c4c4c4;
+  margin: 10px;
+  border: 1px solid #222222;
+}
+
+.beer-card:hover {
+  background-color: blue;
 }
 

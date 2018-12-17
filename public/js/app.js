@@ -13988,14 +13988,14 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(51);
 
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-
+"use strict";
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -47414,13 +47414,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(51)
+  __webpack_require__(44)
 }
 var normalizeComponent = __webpack_require__(11)
 /* script */
-var __vue_script__ = __webpack_require__(44)
+var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(55)
+var __vue_template__ = __webpack_require__(50)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47460,117 +47460,46 @@ module.exports = Component.exports
 
 /***/ }),
 /* 44 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            search_item: '',
-            info: null,
-            results: [],
-            selected_beer: null,
-            selected: null
-        };
-    },
-
-    methods: {
-        search_for_beer: function search_for_beer($this) {
-            var self = this;
-            axios.get('https://api.untappd.com/v4/search/beer', {
-                params: {
-                    q: this.search_item,
-                    client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
-                    client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
-                }
-            }).then(function (response) {
-                self.results.length = 0;
-                self.results = response.data.response.beers.items;
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        add_beer: function add_beer($this) {
-            var self = this;
-            axios.post('/api/add_beer', {
-                untappd_id: this.selected_beer.beer.bid,
-                name: this.selected_beer.beer.beer_name,
-                brewery_name: this.selected_beer.brewery.brewery_name,
-                brewery_untappd_id: this.selected_beer.brewery.brewery_id,
-                brewery_label: this.selected_beer.brewery.brewery_label,
-                beer_label: this.selected_beer.beer.beer_label,
-                style: this.selected_beer.beer.beer_style,
-                year: null,
-                abv: this.selected_beer.beer.beer_abv,
-                city: this.selected_beer.brewery.location.brewery_city,
-                state: this.selected_beer.brewery.location.brewery_state
-
-            }).then(function (response) {
-                console.log(response);
-                window.location = '/dashboard';
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-        // watch: {
-        //     selected_beer: function() {
-        //         this.selected.
-        //     }
-        // }
-    } });
+// load the styles
+var content = __webpack_require__(45);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(47)("693404be", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6406c664\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6406c664\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
-/* 45 */,
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(46)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.beer-card[data-v-6406c664] {\n    cursor: pointer;\n    border: 1px solid black;\n    margin: 5px;\n}\n.selected-beer-card[data-v-6406c664] {\n    border: 1px solid #10aded;\n    margin: 5px;\n}\nlabel > input[data-v-6406c664] {\n    visibility: hidden;\n    position: absolute;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 46 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 47 */,
-/* 48 */
 /***/ (function(module, exports) {
 
 /*
@@ -47652,49 +47581,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(52);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(53)("693404be", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6406c664\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6406c664\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchComponent.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(48)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.beer-card[data-v-6406c664] {\n    cursor: pointer;\n    border:1px solid black;\n    margin: 5px;\n}\n.selected-beer-card[data-v-6406c664] {\n    border:1px solid #10ADED;\n    margin: 5px;\n}\nlabel > input[data-v-6406c664]{ /* HIDE RADIO */\n  visibility: hidden; /* Makes input not-clickable */\n  position: absolute; /* Remove input from document flow */\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 53 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -47713,7 +47600,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(54)
+var listToStyles = __webpack_require__(48)
 
 /*
 type StyleObject = {
@@ -47922,7 +47809,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 54 */
+/* 48 */
 /***/ (function(module, exports) {
 
 /**
@@ -47955,7 +47842,129 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 55 */
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            search_item: '',
+            info: null,
+            results: [],
+            details: [],
+            selected_beer: null,
+            selected: null,
+            quantity: 1
+        };
+    },
+
+    methods: {
+        search_for_beer: function search_for_beer($this) {
+            var self = this;
+            axios.get('https://api.untappd.com/v4/search/beer', {
+                params: {
+                    q: this.search_item,
+                    client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
+                    client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
+                }
+            }).then(function (response) {
+                self.results.length = 0;
+                self.results = response.data.response.beers.items;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        add_beer: function add_beer($this) {
+            var self = this;
+            axios.get('https://api.untappd.com/v4/beer/info/' + this.selected_beer.beer.bid, {
+                params: {
+                    client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
+                    client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
+                }
+            }).then(function (response) {
+                self.details.length = 0;
+                self.details = response.data.response.beer;
+                var label = void 0;
+                if (self.details.beer_label_hd) {
+                    label = self.details.beer_label_hd;
+                } else {
+                    label = self.details.beer_label;
+                }
+                axios.post('/api/add_beer', {
+                    untappd_id: self.selected_beer.beer.bid,
+                    quantity: self.quantity,
+                    name: self.selected_beer.beer.beer_name,
+                    brewery_name: self.selected_beer.brewery.brewery_name,
+                    brewery_untappd_id: self.selected_beer.brewery.brewery_id,
+                    brewery_label: self.selected_beer.brewery.brewery_label,
+                    beer_label: label,
+                    style: self.selected_beer.beer.beer_style,
+                    year: null,
+                    abv: self.selected_beer.beer.beer_abv,
+                    city: self.selected_beer.brewery.location.brewery_city,
+                    state: self.selected_beer.brewery.location.brewery_state
+                }).then(function (response) {
+                    console.log(response);
+                    window.location = '/dashboard';
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -48019,60 +48028,86 @@ var render = function() {
         "button",
         { staticClass: "btn btn-primary", on: { click: _vm.add_beer } },
         [_vm._v("Add Selected Beer")]
-      )
+      ),
+      _vm._v(" "),
+      _vm.selected_beer
+        ? _c("span", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.quantity,
+                  expression: "quantity"
+                }
+              ],
+              attrs: { type: "text", placeholder: "Quantity" },
+              domProps: { value: _vm.quantity },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.quantity = $event.target.value
+                }
+              }
+            })
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row justify-content-center" },
-      _vm._l(_vm.results, function(result) {
-        return _c("div", [
-          _c(
-            "div",
-            {
-              staticClass: "card crd-default",
-              class: [
-                _vm.selected_beer === result
-                  ? "selected-beer-card"
-                  : "beer-card"
-              ]
-            },
-            [
-              _c("label", { staticClass: "search-beer-cards" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selected_beer,
-                      expression: "selected_beer"
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-3 col-sm-6 col-xs-12" },
+        _vm._l(_vm.results, function(result) {
+          return _c("div", [
+            _c(
+              "div",
+              {
+                class: [
+                  _vm.selected_beer === result
+                    ? "selected-beer-card"
+                    : "beer-card"
+                ]
+              },
+              [
+                _c("label", { staticClass: "search-beer-cards" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selected_beer,
+                        expression: "selected_beer"
+                      }
+                    ],
+                    attrs: { type: "radio", name: result.beer.beer_name },
+                    domProps: {
+                      value: result,
+                      checked: _vm._q(_vm.selected_beer, result)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.selected_beer = result
+                      }
                     }
-                  ],
-                  attrs: { type: "radio", name: result.beer.beer_name },
-                  domProps: {
-                    value: result,
-                    checked: _vm._q(_vm.selected_beer, result)
-                  },
-                  on: {
-                    change: function($event) {
-                      _vm.selected_beer = result
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-header" }, [
-                  _vm._v(_vm._s(result.beer.beer_name))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("img", { attrs: { src: result.beer.beer_label } })
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-header" }, [
+                    _vm._v(_vm._s(result.beer.beer_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("img", { attrs: { src: result.beer.beer_label } })
+                  ])
                 ])
-              ])
-            ]
-          )
-        ])
-      })
-    )
+              ]
+            )
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -48084,6 +48119,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-6406c664", module.exports)
   }
 }
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

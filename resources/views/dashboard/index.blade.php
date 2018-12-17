@@ -1,42 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <div class="flex-center position-ref">
-    <div class="content">
-        <h1>Your Inventory</h1>
-        @foreach ($user_beers as $beer)
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="{{$beer->beer_label}}" alt="Beer label">
-            <div class="card-body">
-                <h4 class="card-title">{{$beer->name}}</h4>
-                <h6 class="card-subtitle">{{$beer->brewery_name}}</h6>
-                <p class="card-text">{{$beer->style}}</p>
-                <p class="card-text">{{$beer->abv}}%</p>
-                <a href="{{ url('beers/' . $beer->id) }}" class="btn btn-primary">Details</a>
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div> --}}
 <div class="container">
     <div class="row">
         <div class="flex-center position-ref">
-            <h1>Your Inventory</h1>
+            <h1>Your Beerventory</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row beerventory-page">
         @foreach ($user_beers as $beer)
-        <div class="col-sm-3">
-            <div class="card beer-card" style="width: 10rem; min-height: 300px; max-height: 300px;">
-                <img class="card-img-top beer-card-image" src="{{$beer->beer_label}}" alt="Beer label" style="opacity: 0.25; filter: alpha(opacity=25); no-repeat;">
-                {{-- <div class="card-img-overlay" style="color: #222222;"> --}}
-                    <h4 class="card-title">{{$beer->name}}</h4>
-                    <h6 class="card-subtitle">{{$beer->brewery_name}}</h6>
-                    <p class="card-text">{{$beer->style}}</p>
-                    <p class="card-text">{{$beer->abv}}%</p>
-                    <a href="{{ url('beers/' . $beer->id) }}" class="btn btn-primary">Details</a>
-                {{-- </div> --}}
-            </div>
+    
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <a href="{{ url('beers/' . $beer->id) }}">
+                <div class="beer-card row" style="">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-4">
+                                <img class="beer-card-image" height="75px" weight="75px" src="{{$beer->beer_label}}" alt="Beer label" style="">
+                            </div>
+                            <div class="col-8">
+                                <h6 class="">{{$beer->name}}</h6>
+                                <span class="">{{$beer->brewery_name}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="">{{$beer->style}}</p>
+                                <p class="">{{$beer->abv}}%</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p class="">Quantity</p>
+                                <p class="">{{$beer->quantity}}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <a href="{{ url('beers/' . $beer->id) }}" class="btn btn-primary btn-block">Details</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </a>
         </div>
         @endforeach
     </div>

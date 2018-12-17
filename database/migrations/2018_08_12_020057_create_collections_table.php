@@ -18,6 +18,7 @@ class CreateCollectionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('beer_id')->unsigned();
             $table->foreign('beer_id')->references('id')->on('beers');
+            $table->integer('quantity');
         });
     }
 

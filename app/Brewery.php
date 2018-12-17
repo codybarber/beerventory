@@ -18,4 +18,9 @@ class Brewery extends Model
         'city',
         'state',
     ];
+
+    /**
+    * Disable required timestamps in Brewery table
+    */
+    public $timestamps = false;
 }
