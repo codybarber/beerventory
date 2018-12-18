@@ -14023,7 +14023,6 @@ var app = new Vue({
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 window._ = __webpack_require__(15);
 window.Popper = __webpack_require__(3).default;
 
@@ -14058,7 +14057,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  };
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -47891,6 +47893,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47901,11 +47929,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             details: [],
             selected_beer: null,
             selected: null,
-            quantity: 1
+            quantity: 0
         };
     },
 
+    watch: {
+        selected_beer: function selected_beer() {
+            this.quantity = 0;
+        }
+    },
     methods: {
+        select_beer: function select_beer(beer) {
+            this.selected_beer = beer;
+        },
+        change_quantity: function change_quantity(operator) {
+            if (operator === 'add') {
+                this.quantity = this.quantity + 1;
+            } else {
+                if (this.quantity !== 0) {
+                    this.quantity = this.quantity - 1;
+                }
+            }
+        },
+        truncate_word: function truncate_word(string, chars) {
+            if (string.length > chars) {
+                return string.substring(0, chars) + '...';
+            } else {
+                return string;
+            }
+        },
         search_for_beer: function search_for_beer($this) {
             var self = this;
             axios.get('https://api.untappd.com/v4/search/beer', {
@@ -47972,12 +48024,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
-        _c("div", {}, [
-          _c("h2", [_vm._v("Add a beer to your collection")]),
+        _c("div", { attrs: { clas: "row" } }, [
+          _c("h2", [_vm._v("Add a beer to your Beerventory")]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "col-lg-12 justify-content-center" }, [
             _c("div", { staticClass: "input-group" }, [
               _c("input", {
                 directives: [
@@ -47989,7 +48041,10 @@ var render = function() {
                   }
                 ],
                 staticClass: "beer-search-input",
-                attrs: { type: "text" },
+                attrs: {
+                  type: "text",
+                  placeholder: "Search for a beer or brewery here"
+                },
                 domProps: { value: _vm.search_item },
                 on: {
                   input: function($event) {
@@ -48023,87 +48078,142 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", on: { click: _vm.add_beer } },
-        [_vm._v("Add Selected Beer")]
-      ),
-      _vm._v(" "),
-      _vm.selected_beer
-        ? _c("span", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.quantity,
-                  expression: "quantity"
-                }
-              ],
-              attrs: { type: "text", placeholder: "Quantity" },
-              domProps: { value: _vm.quantity },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.quantity = $event.target.value
-                }
-              }
-            })
-          ])
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", {}, [
       _c(
         "div",
-        { staticClass: "col-md-3 col-sm-6 col-xs-12" },
+        { staticClass: "row" },
         _vm._l(_vm.results, function(result) {
-          return _c("div", [
-            _c(
-              "div",
-              {
-                class: [
-                  _vm.selected_beer === result
-                    ? "selected-beer-card"
-                    : "beer-card"
-                ]
-              },
-              [
-                _c("label", { staticClass: "search-beer-cards" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selected_beer,
-                        expression: "selected_beer"
-                      }
-                    ],
-                    attrs: { type: "radio", name: result.beer.beer_name },
-                    domProps: {
-                      value: result,
-                      checked: _vm._q(_vm.selected_beer, result)
-                    },
-                    on: {
-                      change: function($event) {
-                        _vm.selected_beer = result
-                      }
+          return _c("div", { staticClass: "col-lg-4 col-md-12" }, [
+            _c("div", [
+              _c(
+                "div",
+                {
+                  staticClass: "beer-card",
+                  style: {
+                    backgroundImage: "url(" + result.beer.beer_label + ")"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.select_beer(result)
                     }
-                  }),
+                  }
+                },
+                [
+                  _c("div", { staticClass: "beer-card__overlay" }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-header" }, [
-                    _vm._v(_vm._s(result.beer.beer_name))
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("img", { attrs: { src: result.beer.beer_label } })
+                  _c("div", { staticClass: "beer-card__content" }, [
+                    _c("div", { staticClass: "beer-card__header" }, [
+                      _c("h4", { staticClass: "beer-card__title" }, [
+                        _vm._v(_vm._s(result.beer.beer_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", { staticClass: "beer-card__info" }, [
+                        _vm._v(_vm._s(result.brewery.brewery_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", { staticClass: "beer-card__title" }, [
+                        _vm._v(
+                          _vm._s(result.brewery.location.brewery_city) +
+                            ", " +
+                            _vm._s(result.brewery.location.brewery_state)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "beer-card__desc" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(result.beer.beer_style)
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(result.beer.beer_abv) +
+                          "% ABV\n                            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.selected_beer === result
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "text-left",
+                            staticStyle: { "z-index": "9999" }
+                          },
+                          [
+                            _c("h6", { staticClass: "text-center" }, [
+                              _vm._v("Quantity")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-outline beer-card__button quantity-button",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.change_quantity("subtract")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-minus" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "btn btn-outline beer-card__button",
+                                model: {
+                                  value: _vm.quantity,
+                                  callback: function($$v) {
+                                    _vm.quantity = $$v
+                                  },
+                                  expression: "quantity"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.quantity) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-outline beer-card__button quantity-button",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.change_quantity("add")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-plus" })]
+                            ),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: { click: _vm.add_beer }
+                              },
+                              [_vm._v("Add Selected Beer")]
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ])
-                ])
-              ]
-            )
+                ]
+              )
+            ])
           ])
         })
       )

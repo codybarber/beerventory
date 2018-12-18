@@ -1,12 +1,12 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-12">
-                <div class="">
-                    <h2>Add a beer to your collection</h2>
-                    <div class="col-lg-12">
+                <div clas="row">
+                    <h2>Add a beer to your Beerventory</h2>
+                    <div class="col-lg-12 justify-content-center">
                         <div class="input-group">
-                            <input type="text" class="beer-search-input" v-model="search_item">
+                            <input type="text" class="beer-search-input" v-model="search_item" placeholder="Search for a beer or brewery here">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary beer-search-button btn-block" @click="search_for_beer" type="button">
                                     Search
@@ -18,16 +18,11 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <button class="btn btn-primary" @click="add_beer">Add Selected Beer</button>
-            <span v-if="selected_beer">
-                <input type="text" v-model="quantity" placeholder="Quantity">
-            </span>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div v-for="result in results">
-                    <div class="" :class="[selected_beer === result  ? 'selected-beer-card' : 'beer-card']">
+        <div class="">
+            <div class="row">
+                <div v-for="result in results" class="col-lg-4 col-md-12">
+
+                    <!-- <div class="" :class="[selected_beer === result  ? 'selected-beer-card' : 'beer-card']">
                         <label class="search-beer-cards">
                             <input type="radio" :name="result.beer.beer_name" :value="result" v-model="selected_beer"/>
                             <div class="card-header">{{result.beer.beer_name}}</div>
@@ -35,7 +30,38 @@
                                 <img :src="result.beer.beer_label"/>
                             </div>
                         </label>
+                    </div> -->
+                    <div>
+                        <div class="beer-card" @click="select_beer(result)" :style="{ backgroundImage: 'url(' + result.beer.beer_label + ')' }">
+                            <div class="beer-card__overlay"></div>
+                            <div class="beer-card__content">
+                                <div class="beer-card__header">
+                                    <h4 class="beer-card__title">{{result.beer.beer_name}}</h4>
+                                    <h5 class="beer-card__info">{{result.brewery.brewery_name}}</h5>
+                                    <h5 class="beer-card__title">{{result.brewery.location.brewery_city}}, {{result.brewery.location.brewery_state}}</h5>
+                                </div>
+                                <p class="beer-card__desc">
+                                    {{result.beer.beer_style}}<br>
+                                    {{result.beer.beer_abv}}% ABV
+                                </p>
+                                <div class="text-left" v-if="selected_beer === result" style="z-index: 9999">
+                                    <h6 class="text-center">Quantity</h6>
+                                    <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('subtract')">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="btn btn-outline beer-card__button" v-model="quantity">
+                                        {{quantity}}
+                                    </span>
+                                    <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('add')">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <br>
+                                    <button class="btn btn-primary" @click="add_beer">Add Selected Beer</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -52,10 +78,34 @@ export default {
             details: [],
             selected_beer: null,
             selected: null,
-            quantity: 1
+            quantity: 0
         };
     },
+    watch: {
+        selected_beer: function() {
+            this.quantity = 0;
+        }
+    },
     methods: {
+        select_beer: function(beer) {
+            this.selected_beer = beer;
+        },
+        change_quantity: function(operator) {
+            if (operator === 'add') {
+                this.quantity = this.quantity + 1;
+            } else {
+                if (this.quantity !== 0) {
+                    this.quantity = this.quantity - 1;
+                }
+            }
+        },
+        truncate_word: function(string, chars) {
+            if (string.length > chars) {
+                return string.substring(0, chars) + '...';
+            } else {
+                return string;
+            }
+        },
         search_for_beer: function($this) {
             let self = this;
             axios

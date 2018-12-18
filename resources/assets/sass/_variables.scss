@@ -1,9 +1,8 @@
-
 // Body
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Nunito", sans-serif;
+$font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -11,10 +10,20 @@ $line-height-base: 1.6;
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
-$pink: #f66D9b;
+$pink: #f66d9b;
 $red: #e3342f;
 $orange: #f6993f;
 $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$primary-color: white;
+$bg-color: #dce1e5;
+$title-color: #9ac7fa;
+$background-image: url(https://untappd.akamaized.net/photos/2018_11_21/794fe3943d045e28bfb0fc7b1aa20862_1280x1280.jpg);
+$background-image2: url('https://untappd.akamaized.net/photos/2018_11_23/1abdb96b1d5b2f131771afe400e4f63c_1280x1280.jpg');
+$background-image3: url('https://untappd.akamaized.net/photos/2018_12_09/c8310856275ea4592e3ec1bb3dc238c3_1280x1280.jpg');
+$font-stack-content: 'Montserrat', helvetica, arial, sans-serif;
+$font-stack-header: 'Montserrat', helvetica, arial, sans-serif;
+$secondary-color: #2a9fff;
