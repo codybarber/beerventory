@@ -14014,6 +14014,7 @@ window.Vue = __webpack_require__(37);
 
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('search-component', __webpack_require__(43));
+Vue.component('beerventory-component', __webpack_require__(55));
 
 var app = new Vue({
   el: '#app'
@@ -47915,10 +47916,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47929,13 +47926,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             details: [],
             selected_beer: null,
             selected: null,
-            quantity: 0
+            quantity: 0,
+            add_params: {}
         };
     },
 
+    mounted: function mounted() {},
     watch: {
         selected_beer: function selected_beer() {
             this.quantity = 0;
+        }
+    },
+    props: {
+        untappd_token: {
+            type: String
         }
     },
     methods: {
@@ -47960,12 +47964,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         search_for_beer: function search_for_beer($this) {
             var self = this;
+            var search_params = {};
+            if (self.untappd_token) {
+                search_params.q = this.search_item;
+                search_params.access_token = self.untappd_token;
+            } else {
+                search_params.q = this.search_item;
+                search_params.client_id = '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B';
+                search_params.client_secret = 'D11E789922926CC31767BAC8D46E974EC1942C82';
+            }
             axios.get('https://api.untappd.com/v4/search/beer', {
-                params: {
-                    q: this.search_item,
-                    client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
-                    client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
-                }
+                params: search_params
             }).then(function (response) {
                 self.results.length = 0;
                 self.results = response.data.response.beers.items;
@@ -47975,11 +47984,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         add_beer: function add_beer($this) {
             var self = this;
+            var add_params = {};
+            if (self.untappd_token) {
+                add_params.access_token = self.untappd_token;
+            } else {
+                add_params.client_id = '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B';
+                add_params.client_secret = 'D11E789922926CC31767BAC8D46E974EC1942C82';
+            }
             axios.get('https://api.untappd.com/v4/beer/info/' + this.selected_beer.beer.bid, {
-                params: {
-                    client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
-                    client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
-                }
+                params: add_params
             }).then(function (response) {
                 self.details.length = 0;
                 self.details = response.data.response.beer;
@@ -48107,16 +48120,20 @@ var render = function() {
                         _vm._v(_vm._s(result.beer.beer_name))
                       ]),
                       _vm._v(" "),
-                      _c("h5", { staticClass: "beer-card__info" }, [
+                      _c("h4", { staticClass: "beer-card__info" }, [
                         _vm._v(_vm._s(result.brewery.brewery_name))
                       ]),
                       _vm._v(" "),
-                      _c("h5", { staticClass: "beer-card__title" }, [
-                        _vm._v(
-                          _vm._s(result.brewery.location.brewery_city) +
-                            ", " +
-                            _vm._s(result.brewery.location.brewery_state)
-                        )
+                      _c("div", { staticClass: "beer-card__share" }, [
+                        _c("span", { staticClass: "beer-card__icon" }, [
+                          _vm._v(
+                            "\n                                      " +
+                              _vm._s(result.brewery.location.brewery_city) +
+                              ", " +
+                              _vm._s(result.brewery.location.brewery_state) +
+                              "\n                                    "
+                          )
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
@@ -48235,6 +48252,300 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(56)
+}
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2f0e18c3"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/BeerventoryComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2f0e18c3", Component.options)
+  } else {
+    hotAPI.reload("data-v-2f0e18c3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(57);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(47)("58a43338", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2f0e18c3\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BeerventoryComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2f0e18c3\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BeerventoryComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(46)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            data: [],
+            untappd_auth_url: ''
+        };
+    },
+
+    mounted: function mounted() {
+        this.untappd_auth_url = 'https://untappd.com/oauth/authenticate/?client_id=8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B&response_type=token&redirect_url=https://beerventory.dev/dashboard';
+        var self = this;
+        axios.get('/api/dashboard', {}).then(function (response) {
+            console.log(response);
+            self.data = response.data.user_beers;
+            // self.results = response.data.response.beers.items;
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    watch: {},
+    methods: {}
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "flex-center position-ref" }, [
+        _c("h1", [_vm._v("Your Beerventory")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.untappd_auth_url } }, [
+          _vm._v("Link Untappd")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "beerventory-page row" },
+      _vm._l(_vm.data, function(beer) {
+        return _c(
+          "div",
+          {
+            staticClass: "beer-card col-lg-5 col-md-12",
+            style: { backgroundImage: "url(" + beer.beer_label + ")" }
+          },
+          [
+            _c("div", { staticClass: "beer-card__overlay" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "beer-card__content" }, [
+              _c(
+                "div",
+                { staticClass: "beer-card__header beer-card-dashboard" },
+                [
+                  _c("h4", { staticClass: "beer-card__title" }, [
+                    _vm._v(_vm._s(beer.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "beer-card__info" }, [
+                    _vm._v(_vm._s(beer.brewery_name))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "beer-card__desc" }, [
+                _vm._v("\n                    " + _vm._s(beer.style)),
+                _c("br"),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(beer.abv) +
+                    "% ABV\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-left" }, [
+                _c("h6", { staticClass: "text-center" }, [_vm._v("Quantity")]),
+                _vm._v(" "),
+                _vm._m(0, true),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline beer-card__button",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(beer.quantity) +
+                        "\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1, true)
+              ]),
+              _vm._v(" "),
+              _c("div", {}, [
+                _c("a", { attrs: { href: "beers/" + beer.id } }, [
+                  _vm._v("View Beer")
+                ])
+              ])
+            ])
+          ]
+        )
+      })
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-outline beer-card__button quantity-button",
+        attrs: { type: "button" }
+      },
+      [_c("i", { staticClass: "fas fa-minus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-outline beer-card__button quantity-button",
+        attrs: { type: "button" }
+      },
+      [_c("i", { staticClass: "fas fa-plus" })]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2f0e18c3", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -16,6 +16,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('search-component', require('./components/SearchComponent.vue'));
+Vue.component('beerventory-component', require('./components/BeerventoryComponent.vue'));
 
 const app = new Vue({
 	el: '#app'

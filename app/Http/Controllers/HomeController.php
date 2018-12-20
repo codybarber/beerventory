@@ -19,12 +19,16 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function index() {
+        return view('dashboard.index');
+    }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
         $userId = Auth::id();
 
@@ -33,6 +37,6 @@ class HomeController extends Controller
             ->where('collections.user_id', '=', $userId)
             ->distinct()->get();
 
-        return view('dashboard.index', compact('user_beers'));
+        return compact('user_beers');
     }
 }

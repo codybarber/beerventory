@@ -15,8 +15,8 @@ class UserlocationsTableSeeder extends Seeder
     {
         DB::table('userlocations')->insert([
             'user_id' => 1,
-            'state' => 'FL',
-            'city' => 'Tampa',
+            'state' => 'GA',
+            'city' => 'Atlanta',
         ]);
 
         DB::table('userlocations')->insert([

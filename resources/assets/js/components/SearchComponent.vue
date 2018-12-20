@@ -22,23 +22,19 @@
             <div class="row">
                 <div v-for="result in results" class="col-lg-4 col-md-12">
 
-                    <!-- <div class="" :class="[selected_beer === result  ? 'selected-beer-card' : 'beer-card']">
-                        <label class="search-beer-cards">
-                            <input type="radio" :name="result.beer.beer_name" :value="result" v-model="selected_beer"/>
-                            <div class="card-header">{{result.beer.beer_name}}</div>
-                            <div class="card-body">
-                                <img :src="result.beer.beer_label"/>
-                            </div>
-                        </label>
-                    </div> -->
                     <div>
                         <div class="beer-card" @click="select_beer(result)" :style="{ backgroundImage: 'url(' + result.beer.beer_label + ')' }">
                             <div class="beer-card__overlay"></div>
+                            
                             <div class="beer-card__content">
                                 <div class="beer-card__header">
                                     <h4 class="beer-card__title">{{result.beer.beer_name}}</h4>
-                                    <h5 class="beer-card__info">{{result.brewery.brewery_name}}</h5>
-                                    <h5 class="beer-card__title">{{result.brewery.location.brewery_city}}, {{result.brewery.location.brewery_state}}</h5>
+                                    <h4 class="beer-card__info">{{result.brewery.brewery_name}}</h4>
+                                    <div class="beer-card__share">
+                                        <span class="beer-card__icon">
+                                          {{result.brewery.location.brewery_city}}, {{result.brewery.location.brewery_state}}
+                                        </span>
+                                    </div>
                                 </div>
                                 <p class="beer-card__desc">
                                     {{result.beer.beer_style}}<br>
@@ -78,12 +74,19 @@ export default {
             details: [],
             selected_beer: null,
             selected: null,
-            quantity: 0
+            quantity: 0,
+            add_params: {}
         };
     },
+    mounted: function() {},
     watch: {
         selected_beer: function() {
             this.quantity = 0;
+        }
+    },
+    props: {
+        untappd_token: {
+            type: String
         }
     },
     methods: {
@@ -108,13 +111,18 @@ export default {
         },
         search_for_beer: function($this) {
             let self = this;
+            let search_params = {};
+            if (self.untappd_token) {
+                search_params.q = this.search_item;
+                search_params.access_token = self.untappd_token;
+            } else {
+                search_params.q = this.search_item;
+                search_params.client_id = '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B';
+                search_params.client_secret = 'D11E789922926CC31767BAC8D46E974EC1942C82';
+            }
             axios
                 .get('https://api.untappd.com/v4/search/beer', {
-                    params: {
-                        q: this.search_item,
-                        client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
-                        client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
-                    }
+                    params: search_params
                 })
                 .then(function(response) {
                     self.results.length = 0;
@@ -126,12 +134,16 @@ export default {
         },
         add_beer: function($this) {
             let self = this;
+            let add_params = {};
+            if (self.untappd_token) {
+                add_params.access_token = self.untappd_token;
+            } else {
+                add_params.client_id = '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B';
+                add_params.client_secret = 'D11E789922926CC31767BAC8D46E974EC1942C82';
+            }
             axios
                 .get('https://api.untappd.com/v4/beer/info/' + this.selected_beer.beer.bid, {
-                    params: {
-                        client_id: '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B',
-                        client_secret: 'D11E789922926CC31767BAC8D46E974EC1942C82'
-                    }
+                    params: add_params
                 })
                 .then(function(response) {
                     self.details.length = 0;

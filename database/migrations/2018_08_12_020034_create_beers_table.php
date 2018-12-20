@@ -24,6 +24,7 @@ class CreateBeersTable extends Migration
             $table->year('year')->nullable();
             $table->float('abv', 4, 2);
             $table->float('value', 8, 2)->nullable();
+            $table->float('rating', 3, 2)->nullable();
             $table->timestamps();
         });
     }

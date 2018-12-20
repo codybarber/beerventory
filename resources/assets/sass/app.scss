@@ -87,6 +87,7 @@ button {
 
 .beer-card {
 	background-size: contain;
+	//background-size: cover;
 	background-repeat: no-repeat;
 	width: 100%;
 	max-width: 800px;
@@ -133,7 +134,6 @@ button {
 		}
 	}
 	&__share {
-		padding: 1em;
 		display: inline-block;
 		width: 100%;
 		max-width: 150px;
@@ -147,7 +147,6 @@ button {
 		mix-blend-mode: lighten;
 		opacity: 0.8;
 		background: none;
-		padding: 0;
 		&:hover {
 			opacity: 1;
 			mix-blend-mode: lighten;
@@ -176,7 +175,7 @@ button {
 			width: 50%;
 		}
 		@media screen and (max-width: 600px) {
-			margin-top: 3.2em;
+			margin-top: 1.5rem;
 			width: 100%;
 			float: inherit;
 			max-width: 100%;
@@ -184,7 +183,7 @@ button {
 		}
 	}
 	&__header {
-		margin-bottom: 2em;
+		margin-bottom: 0.5em;
 	}
 	&__title {
 		color: #ffffff;
@@ -257,4 +256,8 @@ h3 {
 
 .beer-search-button {
 	color: #222222;
+}
+
+.beer-card-dashboard {
+	margin-top: 3.2rem;
 }

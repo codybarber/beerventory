@@ -22,6 +22,7 @@ Route::resource('/beers', 'BeersController', [
 ])->middleware('auth');
 
 Route::get('/dashboard', 'HomeController@index')->middleware('auth');
+Route::get('/api/dashboard', 'HomeController@show')->middleware('auth');
 
 // Route::get('/beers', 'BeersController@index')->middleware('auth');
 
