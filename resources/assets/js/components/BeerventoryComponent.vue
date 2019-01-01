@@ -7,9 +7,9 @@
         </div>
     </div>
     <div class="beerventory-page row">
-        <div class="beer-card col-lg-5 col-md-12" v-for="beer in data" :style="{ backgroundImage: 'url(' + beer.beer_label + ')' }" >
+        <div class="beer-card col-lg-5 col-md-12" @click="select_beer(beer)" v-for="beer in data" :style="{ backgroundImage: 'url(' + beer.beer_label + ')' }" >
             <div class="beer-card__overlay"></div>
-            <div class="beer-card__content">
+            <div class="beer-card__content" >
                 <div class="beer-card__header beer-card-dashboard">
                     <h4 class="beer-card__title">{{ beer.name }}</h4>
                     <h4 class="beer-card__info">{{ beer.brewery_name }}</h4>
@@ -20,13 +20,13 @@
                 </p>
                 <div class="text-left">
                     <h6 class="text-center">Quantity</h6>
-                    <button class="btn btn-outline beer-card__button quantity-button" type="button">
+                    <button class="btn btn-outline beer-card__button quantity-button" type="button" v-if="selected_beer === beer">
                         <i class="fas fa-minus"></i>
                     </button>
                     <button class="btn btn-outline beer-card__button" type="button">
                         {{ beer.quantity }}
                     </button>
-                    <button class="btn btn-outline beer-card__button quantity-button" type="button">
+                    <button class="btn btn-outline beer-card__button quantity-button" type="button" v-if="selected_beer === beer">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -44,7 +44,8 @@ export default {
     data() {
         return {
             data: [],
-            untappd_auth_url: ''
+            untappd_auth_url: '',
+            selected_beer: null
         };
     },
     mounted: function() {
@@ -54,7 +55,6 @@ export default {
         axios
             .get('/api/dashboard', {})
             .then(function(response) {
-                console.log(response);
                 self.data = response.data.user_beers;
                 // self.results = response.data.response.beers.items;
             })
@@ -63,7 +63,11 @@ export default {
             });
     },
     watch: {},
-    methods: {}
+    methods: {
+        select_beer: function(beer) {
+            this.selected_beer = beer;
+        }
+    }
 };
 </script>
 

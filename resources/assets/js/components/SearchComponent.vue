@@ -2,6 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Untappd.svg/1200px-Untappd.svg.png" class="img-fluid" alt="Responsive image"> -->
+                    </div>
+                </div>
                 <div clas="row">
                     <h2>Add a beer to your Beerventory</h2>
                     <div class="col-lg-12 justify-content-center">

@@ -50,11 +50,22 @@ class AddBeersController extends Controller
             'abv' => $request['abv']
         ]);
 
-        $collection = new Collection();
-        $collection->user_id = $user->id;
-        $collection->beer_id = $beer->id;
-        $collection->quantity = $request['quantity'];
+        // $collection = Collection::updateOrCreate(
+        //     ['user_id' => $user->id, 'beer_id' => $beer->id],
+        //     ['quantity' => DB::raw('quantity + ' . $request['quantity'])]
+        // );
+
+        $collection = Collection::firstOrNew(['user_id' => $user->id, 'beer_id' => $beer->id]);
+        var_dump('beerid: ' . $collection->beer_id);
+        // var_dump('quantity + new: ' . intval($collection->quantity) + intval($request['quantity']));
+        $collection->quantity = (intval($collection->quantity) + intval($request['quantity']));
         $collection->save();
+
+        // $collection = new Collection();
+        // $collection->user_id = $user->id;
+        // $collection->beer_id = $beer->id;
+        // $collection->quantity = $request['quantity'];
+        // $collection->save();
 
         return response($beer->jsonSerialize(), Response::HTTP_CREATED);
     }

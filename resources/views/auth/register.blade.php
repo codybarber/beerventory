@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="untappd_username" class="col-md-4 col-form-label text-md-right">{{ __('Untappd Username') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="untappd_username" type="text" class="form-control{{ $errors->has('untappd_username') ? ' is-invalid' : '' }}" name="untappd_username" value="{{ old('untappd_username') }}">
+
+                                @if ($errors->has('untappd_username'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('untappd_username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

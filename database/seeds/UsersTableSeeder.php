@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'cody.n.barber@gmail.com',
             'password' => bcrypt('password'),
             'untappdtoken' => '32F1CE9365B690CCAB0449FE2391541F72E624CE',
+            'untappdusername' => 'cody_barber',
         ]);
 
         DB::table('users')->insert([
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'ryandavidevans@gmail.com',
             'password' => bcrypt('password'),
             'untappdtoken' => '',
+            'untappdusername' => 'RynoBrewDawg',
         ]);
 
         DB::table('users')->insert([
@@ -31,6 +33,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'cpbowker@gmail.com',
             'password' => bcrypt('password'),
             'untappdtoken' => '',
+            'untappdusername' => '',
         ]);
     }
 }
