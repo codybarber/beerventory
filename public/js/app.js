@@ -47966,6 +47966,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return string;
             }
         },
+        enterClicked: function enterClicked() {
+            this.search_for_beer();
+        },
         search_for_beer: function search_for_beer($this) {
             var self = this;
             var search_params = {};
@@ -48040,7 +48043,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _vm._m(0),
@@ -48066,6 +48069,15 @@ var render = function() {
                 },
                 domProps: { value: _vm.search_item },
                 on: {
+                  keyup: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    _vm.enterClicked()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -48348,7 +48360,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48359,6 +48371,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -48424,6 +48439,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         select_beer: function select_beer(beer) {
             this.selected_beer = beer;
+        },
+        change_quantity: function change_quantity(operator) {
+            var self = this;
+            if (operator === 'add') {
+                self.selected_beer.quantity = self.selected_beer.quantity + 1;
+            } else {
+                if (self.selected_beer.quantity !== 0) {
+                    self.selected_beer.quantity = self.selected_beer.quantity - 1;
+                }
+            }
+        },
+        delete_beer: function delete_beer() {
+            var self = this;
+            axios.put('/api/delete_beerventory', {
+                beer_id: self.selected_beer.beer_id
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        update_beer: function update_beer() {
+            var self = this;
+            axios.put('/api/update_beerventory', {
+                beer_id: self.selected_beer.beer_id,
+                quantity: self.selected_beer.quantity
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     }
 });
@@ -48466,12 +48512,32 @@ var render = function() {
             _c("div", { staticClass: "beer-card__overlay" }),
             _vm._v(" "),
             _c("div", { staticClass: "beer-card__content" }, [
+              _vm.selected_beer === beer
+                ? _c(
+                    "div",
+                    { staticClass: "beer-card__buttons", attrs: { e: "" } },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-trash",
+                        on: { click: _vm.delete_beer }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fas fa-check",
+                        on: { click: _vm.update_beer }
+                      })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "beer-card__header beer-card-dashboard" },
                 [
-                  _c("h4", { staticClass: "beer-card__title" }, [
-                    _vm._v(_vm._s(beer.name))
+                  _c("a", { attrs: { href: "beers/" + beer.beer_id } }, [
+                    _c("h4", { staticClass: "beer-card__title" }, [
+                      _vm._v(_vm._s(beer.name))
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("h4", { staticClass: "beer-card__info" }, [
@@ -48499,7 +48565,12 @@ var render = function() {
                       {
                         staticClass:
                           "btn btn-outline beer-card__button quantity-button",
-                        attrs: { type: "button" }
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.change_quantity("subtract")
+                          }
+                        }
                       },
                       [_c("i", { staticClass: "fas fa-minus" })]
                     )
@@ -48526,17 +48597,16 @@ var render = function() {
                       {
                         staticClass:
                           "btn btn-outline beer-card__button quantity-button",
-                        attrs: { type: "button" }
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.change_quantity("add")
+                          }
+                        }
                       },
                       [_c("i", { staticClass: "fas fa-plus" })]
                     )
                   : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", {}, [
-                _c("a", { attrs: { href: "beers/" + beer.id } }, [
-                  _vm._v("View Beer")
-                ])
               ])
             ])
           ]

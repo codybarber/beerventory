@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -11,7 +11,7 @@
                     <h2>Add a beer to your Beerventory</h2>
                     <div class="col-lg-12 justify-content-center">
                         <div class="input-group">
-                            <input type="text" class="beer-search-input" v-model="search_item" placeholder="Search for a beer or brewery here">
+                            <input type="text" class="beer-search-input" v-model="search_item" placeholder="Search for a beer or brewery here" @keyup.enter="enterClicked()">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary beer-search-button btn-block" @click="search_for_beer" type="button">
                                     Search
@@ -113,6 +113,9 @@ export default {
             } else {
                 return string;
             }
+        },
+        enterClicked: function() {
+            this.search_for_beer();
         },
         search_for_beer: function($this) {
             let self = this;

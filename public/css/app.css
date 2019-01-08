@@ -10477,11 +10477,6 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.beerventory-page a {
-  text-decoration: none;
-  color: white;
-}
-
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -10510,13 +10505,8 @@ body {
   overflow-x: hidden;
 }
 
-* {
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button {
@@ -10526,6 +10516,10 @@ button {
 
 button:focus {
   outline: 0;
+}
+
+.content {
+  width: 100%;
 }
 
 .beer-card {
@@ -10541,7 +10535,6 @@ button:focus {
   -webkit-box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.25);
   position: relative;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 800px) {
@@ -10581,6 +10574,7 @@ button:focus {
 }
 
 .beer-card__share {
+  padding: 0.25em;
   display: inline-block;
   width: 100%;
   max-width: 150px;
@@ -10616,7 +10610,7 @@ button:focus {
 .beer-card__content {
   text-align: right;
   text-align: -webkit-right;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   max-width: 370px;
   display: -webkit-box;
@@ -10655,12 +10649,25 @@ button:focus {
   margin-bottom: 0.5em;
 }
 
+.beer-card__buttons {
+  margin-bottom: -20px;
+}
+
+.beer-card__buttons i:hover {
+  color: #3490dc;
+  cursor: pointer;
+}
+
 .beer-card__title {
   color: #ffffff;
   margin-bottom: 0.25em;
   opacity: 0.75;
   overflow: hidden;
   max-width: 30ch;
+}
+
+.beer-card__title:hover {
+  color: #3490dc;
 }
 
 @media screen and (max-width: 1000px) {
@@ -10728,7 +10735,7 @@ h3 {
 }
 
 .beer-search-input {
-  width: 70%;
+  width: 90%;
 }
 
 .beer-search-button {

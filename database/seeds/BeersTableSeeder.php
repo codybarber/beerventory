@@ -27,19 +27,6 @@ class BeersTableSeeder extends Seeder
         ]);
 
         DB::table('beers')->insert([
-            'untappd_id' => 2356077,
-            'name' => 'Tritonia With Mango, Orange, & Lime',
-            'brewery_name' => 'Creature Comforts Brewing Company',
-            'brewery_untappd_id' => 8509,
-            'beer_label' => 'https://untappd.akamaized.net/site/beer_logos_hd/beer-2356077_ca929_hd.jpeg',
-            'style' => 'Sour - Gose',
-            'year' => 2018,
-            'abv' => 4.50,
-            'rating' => 4.23,
-            'value' => null,
-        ]);
-
-        DB::table('beers')->insert([
             'untappd_id' => 1593469,
             'name' => 'Focus',
             'brewery_name' => 'Calusa Brewing',

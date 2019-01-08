@@ -14,14 +14,6 @@ class BreweriesTableSeeder extends Seeder
     public function run()
     {
         DB::table('breweries')->insert([
-            'untappd_id' => 8509,
-            'name' => 'Creaure Comforts Brewing Company',
-            'brewery_label' => 'https://untappd.akamaized.net/site/brewery_logos/brewery-8509_7c3bc.jpeg',
-            'city' => 'Athens',
-            'state' => 'GA',
-        ]);
-
-        DB::table('breweries')->insert([
             'untappd_id' => 265193,
             'name' => 'Calusa Brewing',
             'brewery_label' => 'https://untappd.akamaized.net/site/brewery_logos/brewery-265193_fe63a.jpeg',

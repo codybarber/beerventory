@@ -24,11 +24,10 @@ Route::resource('/beers', 'BeersController', [
 Route::get('/dashboard', 'HomeController@index')->middleware('auth');
 Route::get('/api/dashboard', 'HomeController@show')->middleware('auth');
 
-// Route::get('/beers', 'BeersController@index')->middleware('auth');
-
-// Route::get('/beers/{beer}', 'BeersController@show')->middleware('auth');
-
 Route::get('/add_beer', 'AddBeersController@index')->middleware('auth');
 Route::post('/api/add_beer', 'AddBeersController@store')->middleware('auth');
+
+Route::put('/api/update_beerventory', 'CollectionsController@update')->middleware('auth');
+Route::put('/api/delete_beerventory', 'CollectionsController@destroy')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');

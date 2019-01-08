@@ -35,6 +35,7 @@ class HomeController extends Controller
         $user_beers = DB::table('beers')
             ->leftJoin('collections', 'beers.id', '=', 'collections.beer_id')
             ->where('collections.user_id', '=', $userId)
+            ->where('collections.quantity', '>', 0)
             ->distinct()->get();
 
         return compact('user_beers');
