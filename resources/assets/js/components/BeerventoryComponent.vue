@@ -6,8 +6,25 @@
             <a :href="untappd_auth_url">Link Untappd</a>
         </div>
     </div>
+    <div class="flex-center position-ref form-row">
+        <div class="col">
+            <label for="selected_brewery">Brewery</label>
+            <select id="selected_brewery" v-model="selected_brewery">
+                <option v-for="brewery in breweries" :value="brewery.id">{{ brewery.name }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="selected_style">Style</label>
+            <select id="selected_style" v-model="selected_style">
+                <option v-for="style in styles" :value="style">{{ style }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <button class="btn btn-secondary" @click="clear_filters">Clear Filters</button>
+        </div>
+    </div>
     <div class="beerventory-page row">
-        <div class="beer-card col-lg-5 col-md-12" @click="select_beer(beer)" v-for="beer in data" :style="{ backgroundImage: 'url(' + beer.beer_label + ')' }" >
+        <div class="beer-card col-lg-5 col-md-12" @click="select_beer(beer)" v-for="beer in filtered_beers" :style="{ backgroundImage: 'url(' + beer.beer_label + ')' }" >
             <div class="beer-card__overlay"></div>
             <div class="beer-card__content" >
                 <div class="beer-card__buttons" v-if="selected_beer === beer"e> 
@@ -47,8 +64,13 @@ export default {
     data() {
         return {
             data: [],
+            filtered_beers: [],
             untappd_auth_url: '',
-            selected_beer: null
+            selected_beer: null,
+            breweries: [],
+            styles: [],
+            selected_brewery: null,
+            selected_style: null
         };
     },
     mounted: function() {
@@ -59,16 +81,76 @@ export default {
             .get('/api/dashboard', {})
             .then(function(response) {
                 self.data = response.data.user_beers;
-                // self.results = response.data.response.beers.items;
             })
             .catch(function(error) {
                 console.log(error);
             });
     },
-    watch: {},
+    watch: {
+        data: function() {
+            let self = this;
+            self.filtered_beers = _.clone(self.data, true);
+            for (let i = 0; i < self.data.length; i++) {
+                let brewery = { id: self.data[i].brewery_untappd_id, name: self.data[i].brewery_name };
+                self.addOrReplace(brewery, self.breweries);
+                self.styles.indexOf(self.data[i].style) === -1 ? self.styles.push(self.data[i].style) : '';
+            }
+        },
+        selected_brewery: function() {
+            let self = this;
+            if (self.selected_brewery !== null) {
+                if (self.selected_style === null) {
+                    self.filtered_beers.length = 0;
+                    for (let i = 0; i < self.data.length; i++) {
+                        if (self.data[i].brewery_untappd_id === self.selected_brewery) {
+                            self.filtered_beers.push(self.data[i]);
+                        }
+                    }
+                } else {
+                    self.filtered_beers.length = 0;
+                    for (let i = 0; i < self.data.length; i++) {
+                        if (
+                            self.data[i].brewery_untappd_id === self.selected_brewery &&
+                            self.data[i].style === self.selected_style
+                        ) {
+                            self.filtered_beers.push(self.data[i]);
+                        }
+                    }
+                }
+            }
+        },
+        selected_style: function() {
+            let self = this;
+            if (self.selected_style !== null) {
+                if (self.selected_brewery === null) {
+                    self.filtered_beers.length = 0;
+                    for (let i = 0; i < self.data.length; i++) {
+                        if (self.data[i].style === self.selected_style) {
+                            self.filtered_beers.push(self.data[i]);
+                        }
+                    }
+                } else {
+                    self.filtered_beers.length = 0;
+                    for (let i = 0; i < self.data.length; i++) {
+                        if (
+                            self.data[i].style === self.selected_style &&
+                            self.data[i].brewery_untappd_id === self.selected_brewery
+                        ) {
+                            self.filtered_beers.push(self.data[i]);
+                        }
+                    }
+                }
+            }
+        }
+    },
     methods: {
         select_beer: function(beer) {
             this.selected_beer = beer;
+        },
+        clear_filters: function() {
+            this.selected_brewery = null;
+            this.selected_style = null;
+            this.filtered_beers = _.clone(this.data, true);
         },
         change_quantity: function(operator) {
             let self = this;
@@ -106,6 +188,14 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
+        },
+        addOrReplace: function(object, arr) {
+            const i = arr.findIndex(_object => _object.id === object.id);
+            if (i > -1) {
+                arr[i] = object; // (2)
+            } else {
+                arr.push(object);
+            }
         }
     }
 };
