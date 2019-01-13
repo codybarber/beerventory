@@ -12,14 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard.index');
 });
 
 Auth::routes();
 
-Route::resource('/beers', 'BeersController', [
-  'except' => ['edit', 'store']
-])->middleware('auth');
+Route::get('beers/{brewery_untappd_id}', 'BeersController@index')->middleware('auth');
+Route::get('/api/beers/{brewery_untappd_id}', 'BeersController@show')->middleware('auth');
 
 Route::get('/dashboard', 'HomeController@index')->middleware('auth');
 Route::get('/api/dashboard', 'HomeController@show')->middleware('auth');

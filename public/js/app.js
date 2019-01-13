@@ -31439,6 +31439,7 @@ window.Vue = __webpack_require__(39);
 Vue.component('example-component', __webpack_require__(42));
 Vue.component('search-component', __webpack_require__(45));
 Vue.component('beerventory-component', __webpack_require__(51));
+Vue.component('beer-component', __webpack_require__(60));
 
 var app = new Vue({
   el: '#app'
@@ -47924,6 +47925,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47935,7 +47943,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             selected_beer: null,
             selected: null,
             quantity: 0,
-            add_params: {}
+            add_params: {},
+            success: false
         };
     },
 
@@ -47943,6 +47952,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         selected_beer: function selected_beer() {
             this.quantity = 0;
+        },
+        success: function success() {
+            var self = this;
+            if (self.success) {
+                setTimeout(function () {
+                    self.success = false;
+                    self.selected_beer = null;
+                }, 4000);
+            }
         }
     },
     props: {
@@ -48027,8 +48045,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     city: self.selected_beer.brewery.location.brewery_city,
                     state: self.selected_beer.brewery.location.brewery_state
                 }).then(function (response) {
+                    self.success = true;
                     console.log(response);
-                    window.location = '/dashboard';
+                    // window.location = '/dashboard';
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -48172,7 +48191,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm.selected_beer === result
+                    _vm.selected_beer === result && !_vm.success
                       ? _c(
                           "div",
                           {
@@ -48248,6 +48267,24 @@ var render = function() {
                             )
                           ]
                         )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.selected_beer === result && _vm.success
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "alert alert-success alert-dismissible fade show",
+                            attrs: { role: "alert" }
+                          },
+                          [
+                            _c("strong", [_vm._v("Success!")]),
+                            _vm._v(
+                              " Beer added to your Beerventory.\n                                  "
+                            ),
+                            _vm._m(1, true)
+                          ]
+                        )
                       : _vm._e()
                   ])
                 ]
@@ -48267,6 +48304,23 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -48696,28 +48750,24 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "beer-card__content" }, [
               _vm.selected_beer === beer
-                ? _c(
-                    "div",
-                    { staticClass: "beer-card__buttons", attrs: { e: "" } },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-trash",
-                        on: { click: _vm.delete_beer }
-                      }),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fas fa-check",
-                        on: { click: _vm.update_beer }
-                      })
-                    ]
-                  )
+                ? _c("div", { staticClass: "beer-card__buttons" }, [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      on: { click: _vm.delete_beer }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "fas fa-check",
+                      on: { click: _vm.update_beer }
+                    })
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "beer-card__header beer-card-dashboard" },
                 [
-                  _c("a", { attrs: { href: "beers/" + beer.beer_id } }, [
+                  _c("a", { attrs: { href: "beers/" + beer.untappd_id } }, [
                     _c("h4", { staticClass: "beer-card__title" }, [
                       _vm._v(_vm._s(beer.name))
                     ])
@@ -48813,6 +48863,324 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(61)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(63)
+/* template */
+var __vue_template__ = __webpack_require__(64)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3794f786"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/BeerComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3794f786", Component.options)
+  } else {
+    hotAPI.reload("data-v-3794f786", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(62);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("56e376a8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3794f786\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BeerComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3794f786\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BeerComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.profile[data-v-3794f786] {\n    margin: 20px 0;\n}\n\n/* Profile sidebar */\n/*.profile-sidebar {\n    padding: 20px 0 10px 0;\n}\n*/\n.profile-userpic[data-v-3794f786] {\n    margin-top: 50px;\n}\n.profile-userpic img[data-v-3794f786] {\n    float: none;\n    margin: 0 auto;\n    width: 50%;\n    height: 50%;\n    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);\n            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);\n    /*-webkit-border-radius: 50% !important;\n    -moz-border-radius: 50% !important;\n    border-radius: 50% !important;*/\n}\n.profile-usertitle[data-v-3794f786] {\n    text-align: center;\n    margin-top: 20px;\n}\n.profile-usertitle-name[data-v-3794f786] {\n    color: #222222;\n    font-size: 16px;\n    font-weight: 600;\n    margin-bottom: 7px;\n}\n.profile-usertitle-job[data-v-3794f786] {\n    text-transform: uppercase;\n    color: #222222;\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 15px;\n}\n.profile-userbuttons[data-v-3794f786] {\n    text-align: center;\n    margin-top: 10px;\n}\n.profile-userbuttons .btn[data-v-3794f786] {\n    text-transform: uppercase;\n    font-size: 11px;\n    font-weight: 600;\n    padding: 6px 15px;\n    margin-right: 5px;\n}\n.profile-userbuttons .btn[data-v-3794f786]:last-child {\n    margin-right: 0px;\n}\n.profile-usermenu[data-v-3794f786] {\n    margin-top: 30px;\n}\n.profile-usermenu ul li a[data-v-3794f786] {\n    color: #444444;\n    font-size: 14px;\n    font-weight: 400;\n}\n.profile-usermenu ul li a i[data-v-3794f786] {\n    margin-right: 8px;\n    font-size: 14px;\n}\n.profile-usermenu ul li a[data-v-3794f786]:hover {\n    cursor: pointer;\n    color: white;\n    background-color: rgba(0, 0, 0, 0.1);\n    border-radius: 10px;\n}\n.profile-usermenu .active[data-v-3794f786] {\n    color: white;\n    background-color: rgba(0, 0, 0, 0.1);\n    border-radius: 10px;\n}\n\n/*.profile-usermenu ul li.active a {\n    color: white;\n    border-left: 2px solid #5b9bd1;\n    margin-left: -2px;\n}*/\n\n/* Profile Content */\n.profile-content[data-v-3794f786] {\n    padding: 20px;\n    background: #fff;\n    min-height: 460px;\n}\n.bg-image[data-v-3794f786] {\n    /* Add the blur effect */\n    filter: blur(8px);\n    -webkit-filter: blur(8px);\n\n    /* Full height */\n    height: 100%;\n    width: 100%;\n\n    /* Center and scale the image nicely */\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n}\n.bg-content[data-v-3794f786] {\n    font-weight: bold;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 40px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    z-index: 2;\n    width: 100%;\n    height: 105%;\n    /*padding: 20px;*/\n    text-align: center;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            untappd_id: null,
+            details: null,
+            loading: true
+        };
+    },
+
+    mounted: function mounted() {
+        var self = this;
+        self.untappd_id = window.location.pathname.split('/').pop();
+        self.get_beer_info();
+    },
+    methods: {
+        get_beer_info: function get_beer_info($this) {
+            var self = this;
+            var add_params = {};
+            if (self.untappd_token) {
+                add_params.access_token = self.untappd_token;
+            } else {
+                add_params.client_id = '8C9489E6C79A8932CA45D7F3B55C2504FB70DD2B';
+                add_params.client_secret = 'D11E789922926CC31767BAC8D46E974EC1942C82';
+            }
+
+            axios.get('https://api.untappd.com/v4/beer/info/' + self.untappd_id, {
+                params: add_params
+            }).then(function (response) {
+                self.details = response.data.response.beer;
+                var label = void 0;
+                if (self.details.beer_label_hd) {
+                    label = self.details.beer_label_hd;
+                } else {
+                    label = self.details.beer_label;
+                }
+                self.loading = false;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
+    props: {
+        untappd_token: {
+            type: String
+        }
+    }
+});
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm.loading
+      ? _c("div", [_vm._v("Loading...")])
+      : _c("div", { staticClass: "row profile" }, [
+          _c("div", { staticClass: "col-lg-3" }, [
+            _c("div", {
+              staticClass: "bg-image",
+              style: {
+                backgroundImage: "url(" + _vm.details.beer_label_hd + ")"
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "bg-content" }, [
+              _c("div", { staticClass: "profile-userpic" }, [
+                _c("img", {
+                  staticClass: "img-responsive",
+                  attrs: { src: _vm.details.beer_label_hd, alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "profile-usertitle" }, [
+                _c("div", { staticClass: "profile-usertitle-name" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.details.beer_name) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "profile-usertitle-job" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.details.brewery.brewery_name) +
+                      "\n                    "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "profile-userbuttons" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-success btn-sm", attrs: { type: "button" } },
+        [_vm._v("Follow")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger btn-sm", attrs: { type: "button" } },
+        [_vm._v("Message")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "profile-usermenu" }, [
+      _c("ul", { staticClass: "nav flex-column" }, [
+        _c("li", { staticClass: "nav-item" }, [
+          _c("a", { staticClass: "nav-link active", attrs: { href: "#" } }, [
+            _vm._v("Beer Info")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+            _vm._v("Brewery Info")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+            _vm._v("Media")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-9" }, [
+      _c("div", { staticClass: "profile-content" }, [
+        _vm._v(
+          "\n               Some user related content goes here...\n            "
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3794f786", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

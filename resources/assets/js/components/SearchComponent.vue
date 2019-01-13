@@ -4,7 +4,8 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-12">
-                        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Untappd.svg/1200px-Untappd.svg.png" class="img-fluid" alt="Responsive image"> -->
+
+                        
                     </div>
                 </div>
                 <div clas="row">
@@ -45,7 +46,7 @@
                                     {{result.beer.beer_style}}<br>
                                     {{result.beer.beer_abv}}% ABV
                                 </p>
-                                <div class="text-left" v-if="selected_beer === result" style="z-index: 9999">
+                                <div class="text-left" v-if="selected_beer === result && !success" style="z-index: 9999">
                                     <h6 class="text-center">Quantity</h6>
                                     <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('subtract')">
                                         <i class="fas fa-minus"></i>
@@ -59,6 +60,12 @@
                                     <br>
                                     <button class="btn btn-primary" @click="add_beer">Add Selected Beer</button>
                                 </div>
+                                <div v-if="selected_beer === result && success" class="alert alert-success alert-dismissible fade show" role="alert">
+                                      <strong>Success!</strong> Beer added to your Beerventory.
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -80,13 +87,23 @@ export default {
             selected_beer: null,
             selected: null,
             quantity: 0,
-            add_params: {}
+            add_params: {},
+            success: false
         };
     },
     mounted: function() {},
     watch: {
         selected_beer: function() {
             this.quantity = 0;
+        },
+        success: function() {
+            let self = this;
+            if (self.success) {
+                setTimeout(function() {
+                    self.success = false;
+                    self.selected_beer = null;
+                }, 4000);
+            }
         }
     },
     props: {
@@ -178,8 +195,9 @@ export default {
                             state: self.selected_beer.brewery.location.brewery_state
                         })
                         .then(function(response) {
+                            self.success = true;
                             console.log(response);
-                            window.location = '/dashboard';
+                            // window.location = '/dashboard';
                         })
                         .catch(function(error) {
                             console.log(error);

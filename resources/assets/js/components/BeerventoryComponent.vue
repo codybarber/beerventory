@@ -27,12 +27,12 @@
         <div class="beer-card col-lg-5 col-md-12" @click="select_beer(beer)" v-for="beer in filtered_beers" :style="{ backgroundImage: 'url(' + beer.beer_label + ')' }" >
             <div class="beer-card__overlay"></div>
             <div class="beer-card__content" >
-                <div class="beer-card__buttons" v-if="selected_beer === beer"e> 
+                <div class="beer-card__buttons" v-if="selected_beer === beer"> 
                     <i class="fas fa-trash" @click="delete_beer"></i>
                     <i class="fas fa-check" @click="update_beer"></i>
                 </div>
                 <div class="beer-card__header beer-card-dashboard">
-                    <a :href="'beers/' + beer.beer_id ">
+                    <a :href="'beers/' + beer.untappd_id ">
                         <h4 class="beer-card__title">{{ beer.name }}</h4>
                     </a>
                     <h4 class="beer-card__info">{{ beer.brewery_name }}</h4>
