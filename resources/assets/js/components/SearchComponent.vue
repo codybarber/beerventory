@@ -34,7 +34,9 @@
                             
                             <div class="beer-card__content">
                                 <div class="beer-card__header">
-                                    <h4 class="beer-card__title">{{result.beer.beer_name}}</h4>
+                                    <a :href="'beers/' + result.beer.bid ">
+                                        <h4 class="beer-card__title">{{result.beer.beer_name}}</h4>
+                                    </a>
                                     <h4 class="beer-card__info">{{result.brewery.brewery_name}}</h4>
                                     <div class="beer-card__share">
                                         <span class="beer-card__icon">
@@ -65,7 +67,7 @@
                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

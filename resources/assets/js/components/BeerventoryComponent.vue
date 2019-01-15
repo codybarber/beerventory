@@ -95,6 +95,8 @@ export default {
                 self.addOrReplace(brewery, self.breweries);
                 self.styles.indexOf(self.data[i].style) === -1 ? self.styles.push(self.data[i].style) : '';
             }
+            self.styles = self.styles.sort();
+            self.breweries = self.breweries.sort(self.dynamic_sort('name'));
         },
         selected_brewery: function() {
             let self = this;
@@ -196,6 +198,17 @@ export default {
             } else {
                 arr.push(object);
             }
+        },
+        dynamic_sort: function(property) {
+            var sortOrder = 1;
+            if (property[0] === '-') {
+                sortOrder = -1;
+                property = property.substr(1);
+            }
+            return function(a, b) {
+                var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+                return result * sortOrder;
+            };
         }
     }
 };

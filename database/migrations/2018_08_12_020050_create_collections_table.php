@@ -19,6 +19,7 @@ class CreateCollectionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('beer_id')->unsigned();
             $table->foreign('beer_id')->references('id')->on('beers');
+            $table->integer('untappd_id');
             $table->integer('quantity');
         });
     }
@@ -30,6 +31,8 @@ class CreateCollectionsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('collections');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

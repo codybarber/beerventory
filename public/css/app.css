@@ -10559,8 +10559,8 @@ a {
 
 @media screen and (max-width: 600px) {
   .beer-card__overlay {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 159, 255, 0.8)), color-stop(60%, #212120), to(#212120));
-    background: linear-gradient(to bottom, rgba(42, 159, 255, 0.8) 0%, #212120 60%, #212120 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(60%, #212120), to(#212120));
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, #212120 60%, #212120 100%);
   }
 }
 

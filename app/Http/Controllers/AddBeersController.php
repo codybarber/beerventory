@@ -51,6 +51,7 @@ class AddBeersController extends Controller
         ]);
 
         $collection = Collection::firstOrNew(['user_id' => $user->id, 'beer_id' => $beer->id]);
+        $collection->untappd_id = $request['untappd_id'];
         $collection->quantity = (intval($collection->quantity) + intval($request['quantity']));
         $collection->save();
 

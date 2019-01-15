@@ -1,43 +1,127 @@
 <template>
 <div class="container">
-    <div v-if="loading">Loading...</div>
-    <div v-else class="row profile">
-        <div class="col-lg-3">
-            <div class="bg-image" v-bind:style="{ backgroundImage: 'url(' + details.beer_label_hd + ')' }"></div>
-            <div class="bg-content">
-                <div class="profile-userpic">
-                    <img :src="details.beer_label_hd" class="img-responsive" alt="">
+    <div class="row" v-if="loading">Loading...</div>
+    <div v-else class="row">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <img v-if="details.beer_label_hd.length > 0" alt="Beer Label" class="beer-label" :src="details.beer_label_hd" />
+                    <img v-else alt="Beer Label" class="beer-label" :src="details.beer_label" />
                 </div>
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{ details.beer_name}}
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>{{ details.beer_name }}</h3>
+                        </div>
                     </div>
-                    <div class="profile-usertitle-job">
-                        {{ details.brewery.brewery_name }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>{{ details.brewery.brewery_name }}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>{{ details.brewery.location.brewery_city }}, {{ details.brewery.location.brewery_state }}</h5>
+                        </div>
                     </div>
                 </div>
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
-                <div class="profile-usermenu">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Beer Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Brewery Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Media</a>
-                        </li>
-                    </ul>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Quantity <button class="btn btn-outline-secondary" v-if="quantity > 0" @click="open_add_beer"><i class="fas fa-pencil-alt"> </i></button></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" v-if="user_beer">
+                            <h4 v-if="!adding">{{ user_beer.quantity }}</h4>
+                            <div v-if="adding">
+                                <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('subtract')">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-outline beer-card__button" type="button">
+                                    {{ quantity }}
+                                </button>
+                                <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('add')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-primary" @click="add_beer">Add Beer</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12" v-else>
+                            <div v-if="!adding">
+                                <h5>You don't have this in your beerventory</h5>
+                                <button class="btn btn-secondary" @click="open_add_beer">Add Beer?</button>
+                            </div>
+                            <div v-if="adding">
+                                <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('subtract')">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-outline beer-card__button" type="button">
+                                    {{ quantity }}
+                                </button>
+                                <button class="btn btn-outline beer-card__button quantity-button" type="button" @click="change_quantity('add')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-primary" @click="add_beer">Add Beer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div v-if="success" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> Beer added to your Beerventory.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="profile-content">
-               Some user related content goes here...
+            <div class="row">
+                <div class="col-md-4">
+                    <p>{{ details.beer_description }}</p>
+                </div>
+                <div class="col-md-4">
+                    <form>
+                        <div class="form-group row">
+                            <label for="style" class="col-sm-6 col-form-label">Style</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="style" :value="details.beer_style">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="abv" class="col-sm-6 col-form-label">ABV</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="abv" :value="details.beer_abv + '%'">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="score" class="col-sm-6 col-form-label">Untappd Rating</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="score" :value="details.rating_score.toFixed(2)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="site" class="col-sm-6 col-form-label">Untappd Link</label>
+                            <div class="col-sm-6">
+                                <a class="form-control-plaintext" id="site" target="_blank" :href="'https://untappd.com/b/' + details.brewery.brewery_slug + '-' + details.brewery.contact.url + '/' + details.bid">Link</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="site" class="col-sm-6 col-form-label">Brewery Website</label>
+                            <div class="col-sm-6">
+                                <a class="form-control-plaintext" id="site" target="_blank" :href="'http://' + details.brewery.contact.url">Link</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="col-md-4">
+                    <carousel :perPage="1" :paginationPadding="4">
+                        <slide v-for="(image, index) in details.media.items" :key="image.checkin_id">
+                            <img class="w-100" :src="image.photo.photo_img_lg">
+                        </slide>
+                    </carousel>
+                </div>
             </div>
         </div>
     </div>
@@ -45,13 +129,22 @@
 </template>
 
 <script>
+import { Carousel, Slide } from 'vue-carousel';
 export default {
     data() {
         return {
             untappd_id: null,
             details: null,
-            loading: true
+            loading: true,
+            quantity: 0,
+            user_beer: null,
+            adding: false,
+            success: false
         };
+    },
+    components: {
+        Carousel,
+        Slide
     },
     mounted: function() {
         let self = this;
@@ -75,13 +168,71 @@ export default {
                 })
                 .then(function(response) {
                     self.details = response.data.response.beer;
-                    let label;
-                    if (self.details.beer_label_hd) {
-                        label = self.details.beer_label_hd;
-                    } else {
-                        label = self.details.beer_label;
-                    }
                     self.loading = false;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+            axios
+                .get('/api/beers/' + self.untappd_id, {})
+                .then(function(response) {
+                    self.user_beer = response.data.user_beers[0];
+                    self.quantity = response.data.user_beers[0].quantity;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
+        open_add_beer: function() {
+            this.adding = true;
+        },
+        change_quantity: function(operator) {
+            let self = this;
+            if (operator === 'add') {
+                self.quantity = self.quantity + 1;
+            } else {
+                if (self.quantity !== 0) {
+                    self.quantity = self.quantity - 1;
+                }
+            }
+        },
+        add_beer: function() {
+            let self = this;
+            let label;
+            if (self.details.beer_label_hd) {
+                label = self.details.beer_label_hd;
+            } else {
+                label = self.details.beer_label;
+            }
+            let current_quantity;
+            if (self.user_beer) {
+                current_quantity = self.user_beer.quantity;
+            } else {
+                current_quantity = 0;
+            }
+            let new_quantity = self.quantity - current_quantity;
+            axios
+                .post('/api/add_beer', {
+                    untappd_id: self.details.bid,
+                    quantity: new_quantity,
+                    name: self.details.beer_name,
+                    brewery_name: self.details.brewery.brewery_name,
+                    brewery_untappd_id: self.details.brewery.brewery_id,
+                    brewery_label: self.details.brewery.brewery_label,
+                    beer_label: label,
+                    style: self.details.beer_style,
+                    year: null,
+                    abv: self.details.beer_abv,
+                    city: self.details.brewery.location.brewery_city,
+                    state: self.details.brewery.location.brewery_state
+                })
+                .then(function(response) {
+                    self.adding = false;
+                    self.success = true;
+                    self.get_beer_info();
+                    console.log(response);
+                    // window.location = '/dashboard';
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -97,134 +248,7 @@ export default {
 </script>
 
 <style scoped>
-.profile {
-    margin: 20px 0;
-}
-
-/* Profile sidebar */
-/*.profile-sidebar {
-    padding: 20px 0 10px 0;
-}
-*/
-.profile-userpic {
-    margin-top: 50px;
-}
-.profile-userpic img {
-    float: none;
-    margin: 0 auto;
-    width: 50%;
-    height: 50%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    /*-webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    border-radius: 50% !important;*/
-}
-
-.profile-usertitle {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.profile-usertitle-name {
-    color: #222222;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 7px;
-}
-
-.profile-usertitle-job {
-    text-transform: uppercase;
-    color: #222222;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.profile-userbuttons {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.profile-userbuttons .btn {
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 6px 15px;
-    margin-right: 5px;
-}
-
-.profile-userbuttons .btn:last-child {
-    margin-right: 0px;
-}
-
-.profile-usermenu {
-    margin-top: 30px;
-}
-
-.profile-usermenu ul li a {
-    color: #444444;
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.profile-usermenu ul li a i {
-    margin-right: 8px;
-    font-size: 14px;
-}
-
-.profile-usermenu ul li a:hover {
-    cursor: pointer;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-.profile-usermenu .active {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-/*.profile-usermenu ul li.active a {
-    color: white;
-    border-left: 2px solid #5b9bd1;
-    margin-left: -2px;
-}*/
-
-/* Profile Content */
-.profile-content {
-    padding: 20px;
-    background: #fff;
-    min-height: 460px;
-}
-
-.bg-image {
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-
-    /* Full height */
-    height: 100%;
-    width: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.bg-content {
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 100%;
-    height: 105%;
-    /*padding: 20px;*/
-    text-align: center;
+.beer-label {
+    max-width: 100%;
 }
 </style>

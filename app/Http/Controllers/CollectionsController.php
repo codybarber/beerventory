@@ -22,7 +22,11 @@ class CollectionsController extends Controller
     {
         $user = Auth::user();
 
-        $collection = Collection::firstOrNew(['user_id' => $user->id, 'beer_id' => $request['beer_id']]);
+        $collection = Collection::firstOrNew([
+            'user_id' => $user->id, 
+            'beer_id' => $request['beer_id']
+        ]);
+        $collection->untappd_id = $request['untappd_id'];
         $collection->quantity = $request['quantity'];
         $collection->save();
 
