@@ -39,7 +39,7 @@
                 </div>
                 <p class="beer-card__desc">
                     {{ beer.style }}<br>
-                    {{ beer.abv }}% ABV
+                    {{ beer.abv }}% ABV<br>
                 </p>
                 <div class="text-left">
                     <h6 class="text-center">Quantity</h6>
@@ -182,7 +182,8 @@ export default {
             axios
                 .put('/api/update_beerventory', {
                     beer_id: self.selected_beer.beer_id,
-                    quantity: self.selected_beer.quantity
+                    quantity: self.selected_beer.quantity,
+                    untappd_id: self.selected_beer.untappd_id
                 })
                 .then(function(response) {
                     console.log(response);

@@ -21,6 +21,7 @@ class CreateCollectionsTable extends Migration
             $table->foreign('beer_id')->references('id')->on('beers');
             $table->integer('untappd_id');
             $table->integer('quantity');
+            $table->date('packaged_date')->nullable();
         });
     }
 
